@@ -9,7 +9,7 @@ export default class ReivewModel {
             return;
         }
         try {
-            reviewsDB = await conn.db(process.env.Hotel_NS).collection("reviews");
+            reviewsDB = await conn.db(process.env.Hotel_NS).collection("Reviews");
         } catch (e) {
             console.error(`unable to connect to db:${e}`);
         }
@@ -21,7 +21,7 @@ export default class ReivewModel {
                 user_id: user._id,
                 date: date,
                 text: review,
-                _id: ObjectID(hotelid)
+                _hotel_id: ObjectID(hotelid)
             }
             return await reviewsDB.insertOne(reviewDoc)
         } catch (e) {

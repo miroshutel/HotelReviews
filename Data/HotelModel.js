@@ -142,7 +142,7 @@ export default class HotelModel {
             };
         }
     }
-    static async getHotelTypes() {
+    static async apiGethotelsTypes() {
         let bedTypes = [];
         try {
             bedTypes = await hotels.distinct("type");
@@ -151,36 +151,39 @@ export default class HotelModel {
             console.error(`Unable to get types ${e}`);
         }
     }
-    static async getHotelById(id) {
+    static async apiGetHotelById(id) {
         try {
             const pipeline = [{
                     $match: {
-                        _id: new ObjectID(id)
-                    }
+                        _id: new ObjectID(id),
+                    },
                 },
                 {
                     $lookup: {
-                        from: "reviews",
+                        from: "Reviews",
                         let: {
-                            id: "$_id"
-                        }
-                    },
-                    pipeline: [{
-                        $match: {
-                            $expr: {
-                                $eq: ["$_id", "$$id"]
-                            }
+                            id: "$_id",
                         },
-                        $sort: {
-                            date: -1
-                        }
-                    }],
-                    as: "reviews"
-                }, ,
+                        pipeline: [{
+                                $match: {
+                                    $expr: {
+                                        $eq: ["$_hotel_id", "$$id"],
+                                    },
+                                },
+                            },
+                            {
+                                $sort: {
+                                    date: -1,
+                                },
+                            },
+                        ],
+                        as: "reviews",
+                    },
+                },
                 {
                     $addFields: {
                         reviews: "$reviews",
-                    }
+                    },
                 },
             ]
             return await hotels.aggregate(pipeline).next();

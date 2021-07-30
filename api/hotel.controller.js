@@ -30,9 +30,9 @@ export default class HotelController {
         res.json(response);
     }
     static async apiGetHotelById(req, res, next) {
-        try {
-            let id = req.query.id || {};
-            let hotel = HotelModel.getHotelById(id);
+        try {     
+            let id = req.params.id || {};
+            let hotel = HotelModel.apiGetHotelById(id);
             if (!hotel) {
                 res.status(404).json({
                     erorr: "Not Found"
