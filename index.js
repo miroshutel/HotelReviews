@@ -8,7 +8,7 @@ dotenv.config();
 const MongoClint = mongodb.MongoClient;
 
 const port = process.env.PORT || 8000;
-
+console.log(`hello port ${port}`)
 MongoClint.connect(process.env.HOTEL_DB_URI, {
     maxPoolSize: 50,
     wtimeoutMS: 2500,
