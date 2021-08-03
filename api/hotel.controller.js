@@ -32,7 +32,7 @@ export default class HotelController {
     static async apiGetHotelById(req, res, next) {
         try {     
             let id = req.params.id || {};
-            let hotel = HotelModel.apiGetHotelById(id);
+            let hotel = await HotelModel.apiGetHotelById(id);
             if (!hotel) {
                 res.status(404).json({
                     erorr: "Not Found"

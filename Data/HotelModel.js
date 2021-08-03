@@ -186,6 +186,7 @@ export default class HotelModel {
                     },
                 },
             ]
+            console.log(pipeline);
             return await hotels.aggregate(pipeline).next();
         } catch (e) {
             console.error(`Something went wrong in gethotels Reviews ${e}`);
