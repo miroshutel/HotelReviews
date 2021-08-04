@@ -10,7 +10,7 @@ const MongoClint = mongodb.MongoClient;
 const port = process.env.PORT || 8000;
 const dbLink=process.env.HOTEL_DB_URI || "mongodb+srv://admin:Ra7!Mi18@cluster0.8geth.mongodb.net/Hotels_Sample?retryWrites=true&w=majority";
 console.log(`hello port ${port}`)
-MongoClint.connect(process.env.HOTEL_DB_URI, {
+MongoClint.connect(dbLink, {
     maxPoolSize: 50,
     wtimeoutMS: 2500,
 }).catch(err => {
